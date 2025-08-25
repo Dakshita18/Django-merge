@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}s
+{% load static %} 
+{% block content %}
+
+
+<div class="signup">
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <lable for="username">username:</lable>
+  <input type="text" id="username"name="username" ><br>
+  <lable for="phonenumber">phonenumber:</lable>
+  <input type="number" placeholder="enter your number"name="phonenumber" ><br>
+  <lable for="email">email:</lable>
+  <input type="email" id="email" name="email"  ><br>
+
+  <lable for="city">city:</lable>
+  <input type="text" placeholder="enter your cityname"name="city"  ><br>
+  <lable for="state">state:</lable>
+  <input type="statename" placeholder="enter your state"name="state"  ><br>
+  <lable for="country">country:</lable>
+  <input type="text" placeholder="enter your countryname"name="country"  ><br>
+  <lable for="address">address:</lable>
+  <input type="text" placeholder="enter your adressname"name="Address" ><br>
+  <lable for="profileimage ">profileimage:</lable>
+  <input type="file" name="profileimageeeeeeeeee" ><br>
+  <lable for="password">password:</lable>
+  <input type="password"placeholder="enter your password" name="password"  ><br>
+  <button type="submit">Sign Up</button>
+               
+ 
+</form>
+        </div>    
+
+{% endblock %}
+

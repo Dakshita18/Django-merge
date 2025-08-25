@@ -1,0 +1,97 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<!-- Post Image and Sidebar -->
+<div class="xx" style="display: flex; justify-content: space-between;">
+    <img style="width: 1350px;height:800px;" src="{{ post.profile_pictures.url }}" alt="...">
+    <div>
+        <h1>CATEGORY</h1>
+        <ul>
+            {% for c in categories %}
+                <li><a href="{% url 'category' pk=c.pk %}">{{ c.name }}</a></li>
+            {% empty %}
+                <li>No categories</li>
+            {% endfor %}
+        </ul>
+
+        <h1>TAG</h1>
+        <ul>
+            {% for t in tags %}
+                <li><a href="{% url 'TAG' pk=t.pk %}">{{ t.name }}</a></li>
+            {% empty %}
+                <li>No tags</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- Post Content -->
+<article class="post" style="width: 1350px;">
+    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+        <div>
+            <img style="height:60px; width: 60px; border-radius: 60%;" src="{{ post.icon.url }}" alt="...">
+            {{ post.title }}
+        </div>
+        <div>
+            <aside class="actions">
+                {% if post.published_date %}
+                    {{ post.published_date }}
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <a class="btn btn-secondary" href="{% url 'post_edit' pk=post.pk %}">
+                        {% include './icons/pencil-fill.svg' %}
+                    </a>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+
+    <p>{{ post.text }}</p>
+    <hr>
+
+    <!-- Comments Section -->
+    <h2>User Comments</h2>
+    {% for comment in comments %}
+        <div style="margin-bottom: 20px;">
+            <strong>{{ comment.name }}</strong>
+            <p>{{ comment.text }}</p>
+
+            <!-- Replies -->
+            {% for reply in comment.children %}
+                <div style="margin-left: 30px; border-left: 1px solid #ccc; padding-left: 10px;">
+                    <strong>{{ reply.name }}</strong>
+                    <p>{{ reply.text }}</p>
+                </div>
+            {% endfor %}
+
+            <!-- Reply Form -->
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <input type="text" name="reply" placeholder="Reply to this comment" required>
+                <input type="text" name="username" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Your email" required>
+                <button type="submit">Submit Reply</button>
+            </form>
+            <hr>
+        </div>
+    {% endfor %}
+
+    <!-- New Comment Form -->
+    <h3>Add a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="comment">Comment:</label>
+        <input type="text" name="comment" placeholder="Enter your comment" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <button type="submit">Post Comment</button>
+    </form>
+</article>
+
+{% endblock %}

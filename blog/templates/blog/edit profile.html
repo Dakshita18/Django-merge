@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class ="container" style="justify-content: center;width: 100%;border: 5px black;margin-top: 50px;">
+  <form class="form-horizontal" role="form" method="post">
+        {% csrf_token %}
+          <div class="form-group">
+  
+            <label class="control-label">Username:</label>
+            <div>
+              <input class="form-control" type="text" value={{user.username}} name= "user_name">
+              </h1>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Email:</label>
+            <div>
+              <input class="form-control" type="text" value={{user.email}} name="email">
+            </div>
+          </div>
+         
+          
+          <div class="form-group">
+            <label class="control-label">city:</label>
+            <div>
+              <input class="form-control" type="text" value={{user.city}} name="city">
+            </div>
+
+          <div class="form-group">
+            <label class="control-label">state:</label>
+            <div>
+              <input class="form-control" type="text" value={{user.state}} name="state">
+            </div>
+
+          <div class="form-group">
+            <label class="control-label">country:</label>
+            <div">
+              <input class="form-control" type="text" value={{user.country}} name="country">
+            </div>
+
+          <div class="form-group">
+            <label class="control-label">Address:</label>
+            <div>
+              <input class="form-control" type="text" value={{user.address}} name="Address">
+            </div>
+          <div class="form-group">
+            <label class="control-label"></label>
+            <div>
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+</div>
+
+{% endblock %}
+
